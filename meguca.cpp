@@ -186,7 +186,8 @@ public:
 void showMenu();
 
 int main(){
-	SetConsoleTitle("Meguca Util v0.5a");
+	// Uncomment for Windows, leave commented for Linux and others
+	//SetConsoleTitle("Meguca Util v0.5a");
 
 	showMenu();
 }
