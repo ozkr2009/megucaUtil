@@ -7,7 +7,7 @@ Ui::Ui(){
 
 //
 void Ui::showWelcome(){
-	std::cout << "Bienvenid@ a Meguca Util v0.5a\n";
+	std::cout << "Bienvenid@ a Meguca Util v1.1a\n";
 }
 
 void Ui::showBye(){
@@ -20,6 +20,8 @@ void Ui::showMainMenu(){
 	std::cout << "Men\xA3 principal:\n";
 	std::cout << "1) Extraer texto de archivo JSON\n";
 	std::cout << "2) Insertar texto al archivo JSON\n";
+	std::cout << "3) Extraer im\xA0genes del sprite sheet\n";
+	std::cout << "4) Insertar im\xA0genes al sprite sheet\n";
 	std::cout << "0) Salir\n";
 	std::cout << "Comando: ";
 }
@@ -41,6 +43,14 @@ int Ui::getMainMenuOption(){
 			this->optionNum = 2;
 			showSubmenu1();
 			return 2;
+		}else if(option == "3"){
+			this->optionNum = 3;
+			showSubmenu1();
+			return 3;
+		}else if(option == "4"){
+			this->optionNum = 4;
+			showSubmenu1();
+			return 4;
 		}else if(option == "0"){
 			this->optionNum = 0;
 			this->exit = true;
@@ -65,6 +75,10 @@ void Ui::showSubmenu1(){
 		std::cout << "\nExtraer texto del archivo JSON...\n\n";
 	else if(this->optionNum == 2)
 		std::cout << "\nInsertar texto al archivo JSON...\n\n";
+	else if(this->optionNum == 3)
+		std::cout << "\nExtraer im\xA0genes del sprite sheet...\n\n";
+	else if(this->optionNum == 4)
+		std::cout << "\nInsertar im\xA0genes al sprite sheet...\n\n";
 
 	this->fileName = getFileName();
 }
@@ -75,7 +89,11 @@ std::string Ui::getFileName(){
 	std::string fileNameExt;
 	bool fileExists = false;
 	while(!fileExists){
-		std::cout << "Ingresa el nombre del archivo JSON sin la extensi\xA2n (\"x\" para cancelar): ";
+		if (optionNum == 1 || optionNum == 2)
+			std::cout << "Ingresa el nombre del archivo JSON sin la extensi\xA2n (\"x\" para cancelar): ";
+		else if (optionNum == 3 || optionNum == 4)
+			std::cout << "Ingresa el nombre del archivo PLIST sin la extensi\xA2n (\"x\" para cancelar): ";
+
 		std::cin >> fileName;
 
 		if(fileName == "x"){
@@ -85,11 +103,15 @@ std::string Ui::getFileName(){
 		std::ifstream file;
 		if(this->optionNum == 1){
 			fileNameExt = fileName + ".json";
-			file.open(fileNameExt);
 		}else if(this->optionNum == 2){
 			fileNameExt = fileName + ".txt";
-			file.open(fileNameExt);
+		}else if(this->optionNum == 3){
+			fileNameExt = fileName + ".plist";
+		}else if(this->optionNum == 4){
+			fileNameExt = fileName + ".plist";
 		}
+
+		file.open(fileNameExt);
 
 		if(file.is_open()){
 			file.close();
